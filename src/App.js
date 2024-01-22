@@ -1,5 +1,29 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { routes } from '~/routes/routes';
+import DefaultLayout from '~/components/layout/DefaultLayout';
 function App() {
-    return <div className="mb-2 mt-2 bg-red-500"> hello world</div>;
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    {routes.map((route, index) => {
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={
+                                    <DefaultLayout>
+                                        <Page />
+                                    </DefaultLayout>
+                                }
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
