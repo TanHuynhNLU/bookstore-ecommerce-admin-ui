@@ -4,7 +4,7 @@ import Avatar from '~/assets/images/avatar.jpg';
 
 function Users() {
     return (
-        <div className="px-4 dark:text-gray-400">
+        <div className="px-4 pb-6 dark:text-gray-400">
             <div className="px-3">
                 <h2 className="text-3xl font-bold">Tài khoản</h2>
                 <ul>
@@ -21,7 +21,7 @@ function Users() {
                     </li>
                 </ul>
             </div>
-            <div className="my-6 px-3">
+            <div className="mt-6 px-3">
                 <div className="rounded-xl border border-solid bg-white shadow-sm dark:border-gray-600 dark:bg-slate-900">
                     <div className="p-3">
                         <div className="flex flex-row justify-between px-3 pt-3">
