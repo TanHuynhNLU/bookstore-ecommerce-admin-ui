@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UserImage from '~/assets/images/user.png';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
+import UserImage from '~/assets/images/user.png';
 
-function AddUser() {
-    const [isShowPassword, setIsShowPassword] = useState(false);
-    const handleShowPassword = () => setIsShowPassword((prevState) => !prevState);
+function UpdateUser() {
     const [selectedImage, setSelectedImage] = useState(UserImage);
 
     const handleImageChange = (event) => {
@@ -33,32 +31,32 @@ function AddUser() {
         };
     }, [selectedImage]);
     return (
-        <div className="px-4 pb-6 dark:text-gray-400">
+        <div className="px-4 dark:text-gray-400">
             <div className="px-3">
-                <h2 className="text-3xl font-bold">Thêm tài khoản</h2>
+                <h2 className="text-3xl font-bold">Cập nhật tài khoản</h2>
                 <ul>
                     <li className="inline-block">
                         <Link to="/">Trang chủ</Link>
                     </li>
                     <li className="inline-block pl-2">
                         <Link
-                            to="/users"
                             className="text-slate-400 before:pr-2 before:content-['/'] dark:text-gray-500"
+                            to="/users"
                         >
                             Tài khoản
                         </Link>
                     </li>
                     <li className="inline-block pl-2">
                         <Link
-                            to="/add-user"
                             className="text-slate-400 before:pr-2 before:content-['/'] dark:text-gray-500"
+                            to="/update-user"
                         >
-                            Thêm tài khoản
+                            Cập nhật tài khoản
                         </Link>
                     </li>
                 </ul>
             </div>
-            <div className="mt-6 px-3">
+            <div className="my-6 px-3">
                 <div className="rounded-xl border border-solid bg-white shadow-sm dark:border-gray-600 dark:bg-slate-900">
                     <div className="p-3">
                         <div className="px-3 pt-3">
@@ -92,6 +90,7 @@ function AddUser() {
                                         name="name"
                                         type="text"
                                         placeholder="Nhập Họ và tên"
+                                        defaultValue="Tan Huynh"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -106,28 +105,28 @@ function AddUser() {
                                         name="username"
                                         type="text"
                                         placeholder="Nhập tên đăng nhập"
-                                        required=""
-                                        className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                        required
+                                        disabled
+                                        className="w-full cursor-not-allowed rounded-md border border-solid border-gray-300 bg-gray-300 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-600"
+                                        defaultValue="Tan Huynh"
                                     />
                                 </div>
                                 <div className="my-2 w-full px-3 lg:w-1/2">
                                     <label htmlFor="password" className="mb-2 block">
                                         Mật khẩu (*)
                                     </label>
-                                    <div className="flex w-full flex-row rounded-md border border-solid border-gray-300 bg-gray-100 outline-none focus-within:border-blue-700 dark:border-gray-600 dark:bg-slate-800">
+                                    <div className="flex w-full flex-row rounded-md border border-solid border-gray-300 bg-gray-300 outline-none focus-within:border-blue-700 dark:border-gray-600 dark:bg-slate-600">
                                         <input
                                             id="password"
                                             name="password"
-                                            type={isShowPassword ? 'text' : 'password'}
+                                            type="password"
                                             placeholder="Nhập mật khẩu"
-                                            required=""
-                                            className="w-full rounded-md bg-gray-100 p-2 outline-none dark:bg-slate-800"
+                                            required
+                                            disabled
+                                            className="w-full cursor-not-allowed rounded-md bg-gray-300 p-2 outline-none dark:bg-slate-600"
+                                            defaultValue="tanhuynh123"
                                         />
-                                        {isShowPassword ? (
-                                            <EyeSlashIcon className="w-8 pr-2" onClick={handleShowPassword} />
-                                        ) : (
-                                            <EyeIcon className="w-8 pr-2" onClick={handleShowPassword} />
-                                        )}
+                                        <EyeIcon className="w-8 cursor-not-allowed pr-2" />
                                     </div>
                                 </div>
                             </div>
@@ -140,8 +139,9 @@ function AddUser() {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        placeholder="Nhập địa chỉ Email"
+                                        placeholder="Nhập vào email"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                        defaultValue="tanhuynh@gmail.com"
                                     />
                                 </div>
                                 <div className="my-2 w-full px-3 lg:w-1/2">
@@ -153,8 +153,8 @@ function AddUser() {
                                         id="role"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
-                                        <option value="user">User</option>
                                         <option value="admin">Admin</option>
+                                        <option value="user">User</option>
                                     </select>
                                 </div>
                             </div>
@@ -170,7 +170,9 @@ function AddUser() {
                                         id="birthday"
                                         name="birthday"
                                         type="date"
-                                        className="h-10 w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                        placeholder="Nhập ngày sinh"
+                                        className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                        defaultValue="2000-01-01"
                                     />
                                 </div>
                                 <div className="my-2 w-full px-3 lg:w-1/2">
@@ -182,10 +184,9 @@ function AddUser() {
                                         id="gender"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
-                                        <option value="" />
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                        <option value="Khác">Khác</option>
+                                        <option value="male">Nam</option>
+                                        <option value="Female">Nữ</option>
+                                        <option value="Other">Khác</option>
                                     </select>
                                 </div>
                             </div>
@@ -200,17 +201,19 @@ function AddUser() {
                                         type="text"
                                         placeholder="Nhập vào địa chỉ"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                        defaultValue="Bến Tre"
                                     />
                                 </div>
                                 <div className="my-2 w-full px-3 lg:w-1/2">
-                                    <label htmlFor="phone" className="mb-2 block">
+                                    <label htmlFor="Phone" className="mb-2 block">
                                         Số điện thoại
                                     </label>
                                     <input
-                                        id="phone"
-                                        name="phone"
+                                        id="Phone"
+                                        name="Phone"
                                         type="text"
                                         placeholder="Nhập vào số điện thoại"
+                                        defaultValue="0123456789"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -235,4 +238,4 @@ function AddUser() {
     );
 }
 
-export default AddUser;
+export default UpdateUser;
