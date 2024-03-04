@@ -39,6 +39,30 @@ export const searchByUsername = async (username, page, size) => {
     }
 };
 
+export const uploadFile = async (file) => {
+    try {
+        let formdata = new FormData();
+        formdata.append('file', file);
+        const res = await request.post('/FileUpload', formdata, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const addNewUser = async (user) => {
+    try {
+        const res = await request.post('/users', user);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const deleteUser = async (id) => {
     try {
         const res = await request.deletes(`/users/${id}`);

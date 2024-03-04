@@ -3,32 +3,95 @@ import { Link } from 'react-router-dom';
 import UserImage from '~/assets/images/user.png';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
+import * as userService from '~/services/UserService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddUser() {
+    const [formData, setFormData] = useState({
+        avatar: '',
+        fullName: '',
+        username: '',
+        password: '',
+        email: '',
+        role: 'User',
+        birthday: '',
+        gender: '',
+        address: '',
+        phone: '',
+        status: 'Kích hoạt',
+    });
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [selectedImage, setSelectedImage] = useState({
+        file: null,
+        preview: UserImage,
+    });
+
     const handleShowPassword = () => setIsShowPassword((prevState) => !prevState);
-    const [selectedImage, setSelectedImage] = useState(UserImage);
-
     const handleImageChange = (event) => {
-        const file = event.target.files[0];
+        const selectedFile = event.target.files[0];
 
-        if (file) {
+        if (selectedFile) {
             // Use FileReader to convert the selected image to a data URL
             const reader = new FileReader();
 
-            reader.onload = (e) => {
-                setSelectedImage(e.target.result);
+            reader.onloadend = () => {
+                setSelectedImage({
+                    file: selectedFile,
+                    preview: reader.result,
+                });
             };
 
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(selectedFile);
         }
+    };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const fetchAPI = async () => {
+            if (selectedImage.file) {
+                const uploadFileAPI = await userService.uploadFile(selectedImage.file);
+                if (uploadFileAPI.status === 'CREATED')
+                    formData.avatar = `http://localhost:8080/api/FileUpload/files/${uploadFileAPI.data}`;
+            }
+            const addNewUserAPI = await userService.addNewUser(formData);
+            if (addNewUserAPI.status === 'CREATED') {
+                toast.success('Thêm tài khoản thành công', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            } else {
+                toast.error('Thêm tài khoản thất bại', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            }
+        };
+        fetchAPI();
     };
 
     useEffect(() => {
         // Cleanup function to revoke the object URL when component unmounts
         return () => {
             if (selectedImage) {
-                URL.revokeObjectURL(selectedImage);
+                URL.revokeObjectURL(selectedImage.preview);
             }
         };
     }, [selectedImage]);
@@ -64,10 +127,10 @@ function AddUser() {
                         <div className="px-3 pt-3">
                             <h3 className="mb-2 text-2xl font-bold">Thông tin chung</h3>
                         </div>
-                        <form className="mt-4 max-w-[800px]">
+                        <form className="mt-4 max-w-[800px]" onSubmit={handleSubmit}>
                             <div className="relative mx-auto mb-6 block h-[100px] w-[100px] rounded-full">
                                 <img
-                                    src={selectedImage}
+                                    src={selectedImage.preview}
                                     alt="Avatar"
                                     className="mx-auto block h-[100px] w-[100px] rounded-full object-cover"
                                 />
@@ -84,14 +147,15 @@ function AddUser() {
                             </div>
                             <div className="flex flex-col lg:flex-row">
                                 <div className="my-2 w-full px-3">
-                                    <label htmlFor="name" className="mb-2 block">
+                                    <label htmlFor="fullName" className="mb-2 block">
                                         Họ và tên
                                     </label>
                                     <input
-                                        id="name"
-                                        name="name"
+                                        id="fullName"
+                                        name="fullName"
                                         type="text"
                                         placeholder="Nhập Họ và tên"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -106,7 +170,8 @@ function AddUser() {
                                         name="username"
                                         type="text"
                                         placeholder="Nhập tên đăng nhập"
-                                        required=""
+                                        onChange={handleInputChange}
+                                        required
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -120,7 +185,9 @@ function AddUser() {
                                             name="password"
                                             type={isShowPassword ? 'text' : 'password'}
                                             placeholder="Nhập mật khẩu"
-                                            required=""
+                                            onChange={handleInputChange}
+                                            required
+                                            minLength="8"
                                             className="w-full rounded-md bg-gray-100 p-2 outline-none dark:bg-slate-800"
                                         />
                                         {isShowPassword ? (
@@ -141,6 +208,7 @@ function AddUser() {
                                         name="email"
                                         type="email"
                                         placeholder="Nhập địa chỉ Email"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -151,10 +219,11 @@ function AddUser() {
                                     <select
                                         name="role"
                                         id="role"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
+                                        <option value="User">User</option>
+                                        <option value="Admin">Admin</option>
                                     </select>
                                 </div>
                             </div>
@@ -170,6 +239,7 @@ function AddUser() {
                                         id="birthday"
                                         name="birthday"
                                         type="date"
+                                        onChange={handleInputChange}
                                         className="h-10 w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -180,6 +250,7 @@ function AddUser() {
                                     <select
                                         name="gender"
                                         id="gender"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="" />
@@ -199,6 +270,7 @@ function AddUser() {
                                         name="address"
                                         type="text"
                                         placeholder="Nhập vào địa chỉ"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -211,13 +283,33 @@ function AddUser() {
                                         name="phone"
                                         type="text"
                                         placeholder="Nhập vào số điện thoại"
+                                        onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
                             </div>
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="my-2 w-full px-3 lg:w-1/2">
+                                    <label htmlFor="gender" className="mb-2 block">
+                                        Trạng thái
+                                    </label>
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        onChange={handleInputChange}
+                                        className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
+                                    >
+                                        <option value="Kích hoạt">Kích hoạt</option>
+                                        <option value="Bị khóa">Khóa</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div className="flex flex-col p-[1px] sm:flex-row-reverse">
                                 <div className="my-2 w-full px-3 sm:w-1/2 lg:w-[150px]">
-                                    <button className="w-full rounded-md bg-blue-700 px-4 py-2 text-white  hover:bg-blue-500">
+                                    <button
+                                        className="w-full rounded-md bg-blue-700 px-4 py-2 text-white  hover:bg-blue-500"
+                                        type="submit"
+                                    >
                                         Xác nhận
                                     </button>
                                 </div>
@@ -231,6 +323,7 @@ function AddUser() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

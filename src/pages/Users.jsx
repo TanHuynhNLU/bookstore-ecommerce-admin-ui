@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Users() {
-    const [users, setUsers] = useState(UserData);
+    const [users, setUsers] = useState([]);
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [sortBy, setSortBy] = useState('id');
@@ -56,7 +56,7 @@ function Users() {
                     theme: 'light',
                 });
             } else {
-                toast.success('Xóa thất bại', {
+                toast.error('Xóa thất bại', {
                     position: 'top-right',
                     autoClose: 3000,
                     hideProgressBar: false,
