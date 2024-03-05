@@ -222,7 +222,7 @@ function Users() {
                                                     </span>
                                                 ) : (
                                                     <span className="inline-block rounded-xl bg-gradient-to-tr from-red-400 to-red-500 px-2 text-white">
-                                                        Bị khóa
+                                                        Khóa
                                                     </span>
                                                 )}
 
@@ -233,7 +233,7 @@ function Users() {
                                             <td className="p-3">
                                                 <div className="flex flex-row items-center">
                                                     <Link
-                                                        to="/update-user"
+                                                        to={`/update-user/${user.id}`}
                                                         className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                     >
                                                         <PencilIcon className="h-4 w-4 text-slate-600" />

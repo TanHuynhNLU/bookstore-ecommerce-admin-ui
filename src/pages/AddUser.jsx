@@ -56,7 +56,7 @@ function AddUser() {
     };
 
     // Handle the API call to add a new user when the submit button is clicked
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const fetchAPI = async () => {
@@ -317,7 +317,7 @@ function AddUser() {
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="Kích hoạt">Kích hoạt</option>
-                                        <option value="Bị khóa">Khóa</option>
+                                        <option value="Khóa">Khóa</option>
                                     </select>
                                 </div>
                             </div>

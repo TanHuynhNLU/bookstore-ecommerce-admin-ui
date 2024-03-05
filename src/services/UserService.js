@@ -24,6 +24,15 @@ export const getUsersPagination = async (page, size, sort) => {
     }
 };
 
+export const getUser = async (id) => {
+    try {
+        const res = await request.get(`/users/${id}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const searchByUsername = async (username, page, size) => {
     try {
         const res = await request.get('/users/search', {
@@ -66,6 +75,15 @@ export const uploadFile = async (file) => {
 export const addNewUser = async (user) => {
     try {
         const res = await request.post('/users', user);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const updateUser = async (id, user) => {
+    try {
+        const res = await request.put(`/users/${id}`, user);
         return res;
     } catch (error) {
         console.log(error);
