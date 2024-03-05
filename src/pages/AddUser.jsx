@@ -6,6 +6,7 @@ import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 import * as userService from '~/services/UserService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDebounce } from '~/hooks';
 
 function AddUser() {
     const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ function AddUser() {
         gender: '',
         address: '',
         phone: '',
+        dateRegistered: new Date().toLocaleDateString('en-CA'),
         status: 'Kích hoạt',
     });
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -26,6 +28,8 @@ function AddUser() {
         file: null,
         preview: UserImage,
     });
+    const debounce = useDebounce(formData.username, 500);
+    const [isUsernameExists, setIsUsernameExists] = useState(false);
 
     const handleShowPassword = () => setIsShowPassword((prevState) => !prevState);
     const handleImageChange = (event) => {
@@ -50,6 +54,8 @@ function AddUser() {
 
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
+
+    // Handle the API call to add a new user when the submit button is clicked
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -95,6 +101,16 @@ function AddUser() {
             }
         };
     }, [selectedImage]);
+
+    // Make an API call to check if the username exists
+    useEffect(() => {
+        const fetchAPI = async () => {
+            const res = await userService.checkUsername(debounce);
+            if (res.status === 'OK') setIsUsernameExists(true);
+            else setIsUsernameExists(false);
+        };
+        if (debounce) fetchAPI();
+    }, [debounce]);
     return (
         <div className="px-4 pb-6 dark:text-gray-400">
             <div className="px-3">
@@ -174,6 +190,7 @@ function AddUser() {
                                         required
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
+                                    {isUsernameExists && <span className="text-red-500">Tên đăng nhập đã tồn tại</span>}
                                 </div>
                                 <div className="my-2 w-full px-3 lg:w-1/2">
                                     <label htmlFor="password" className="mb-2 block">

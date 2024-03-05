@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { UserPlusIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import Avatar from '~/assets/images/avatar.jpg';
+import UserAvatar from '~/assets/images/user.png';
 import { useEffect, useState } from 'react';
 import * as userService from '~/services/UserService';
 import { users as UserData } from '~/DummyData';
@@ -204,7 +204,7 @@ function Users() {
                                             <td className="p-3">{user.id}</td>
                                             <td className="flex flex-row items-center p-3">
                                                 <img
-                                                    src={user.avatar ? user.avatar : Avatar}
+                                                    src={user.avatar ? user.avatar : UserAvatar}
                                                     alt="avatar"
                                                     className="h-10 w-10 rounded-full"
                                                 />

@@ -39,6 +39,15 @@ export const searchByUsername = async (username, page, size) => {
     }
 };
 
+export const checkUsername = async (username) => {
+    try {
+        const res = await request.get(`/users/check-username/${username}`);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const uploadFile = async (file) => {
     try {
         let formdata = new FormData();
