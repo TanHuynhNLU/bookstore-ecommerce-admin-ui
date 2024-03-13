@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import ProductImage from '~/assets/images/book-image.png';
+import ProductImage from '~/assets/images/the-alchemist.jpg';
 import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 
-function AddProduct() {
+function UpdateProduct() {
     return (
         <div className="px-4 dark:text-gray-400">
             <div className="px-3">
-                <h2 className="text-3xl font-bold">Thêm sản phẩm</h2>
+                <h2 className="text-3xl font-bold">Cập nhật sản phẩm</h2>
                 <ul>
                     <li className="inline-block">
                         <Link to="/">Trang chủ</Link>
@@ -14,9 +14,9 @@ function AddProduct() {
                     <li className="inline-block pl-2">
                         <Link
                             className="text-slate-400 before:pr-2 before:content-['/'] dark:text-gray-500"
-                            to="/add-product"
+                            to="/update-product"
                         >
-                            Thêm sản phẩm
+                            Cập nhật sản phẩm
                         </Link>
                     </li>
                 </ul>
@@ -25,7 +25,7 @@ function AddProduct() {
                 <div className="rounded-xl border border-solid bg-white shadow-sm dark:border-gray-600 dark:bg-slate-900">
                     <div className="p-3">
                         <div className="px-3 pt-3">
-                            <h3 className="mb-2 text-2xl font-bold">Thêm sản phẩm</h3>
+                            <h3 className="mb-2 text-2xl font-bold">Cập nhật sản phẩm</h3>
                         </div>
                         <form className="mt-4 max-w-[800px]">
                             <div className="relative mx-auto mb-6 block h-[200px] w-[200px]">
@@ -52,6 +52,7 @@ function AddProduct() {
                                         name="name"
                                         type="text"
                                         placeholder="Nhập tên sách"
+                                        value="Nhà giả kim"
                                         required
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
@@ -63,6 +64,7 @@ function AddProduct() {
                                     <select
                                         name="genre"
                                         id="genre"
+                                        value="Tiểu thuyết"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="" />
@@ -85,6 +87,7 @@ function AddProduct() {
                                         type="number"
                                         min="0"
                                         placeholder="Nhập số lượng sách"
+                                        value="500"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -98,6 +101,7 @@ function AddProduct() {
                                         type="number"
                                         min="0"
                                         placeholder="Nhập giá"
+                                        value="50000"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -112,6 +116,7 @@ function AddProduct() {
                                         name="author"
                                         type="text"
                                         placeholder="Nhập tên tác giả"
+                                        value="Paulo Coelho"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -124,6 +129,7 @@ function AddProduct() {
                                         name="publisher"
                                         type="text"
                                         placeholder="Nhập tên nhà xuất bản"
+                                        value="NXB Hội Nhà Văn"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -139,6 +145,7 @@ function AddProduct() {
                                         type="number"
                                         min="0"
                                         placeholder="Nhập số trang sách"
+                                        value="227"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -152,6 +159,7 @@ function AddProduct() {
                                         type="number"
                                         min="0"
                                         placeholder="Nhập năm xuất bản"
+                                        value="2020"
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -166,8 +174,8 @@ function AddProduct() {
                                     type="text"
                                     rows={5}
                                     placeholder="Nhập mô tả sách"
+                                    value="Tiểu thuyết Nhà giả kim của Paulo Coelho như một câu chuyện cổ tích giản dị, nhân ái, giàu chất thơ, thấm đẫm những minh triết huyền bí của phương Đông."
                                     className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
-                                    defaultValue={''}
                                 />
                             </div>
 
@@ -191,4 +199,4 @@ function AddProduct() {
     );
 }
 
-export default AddProduct;
+export default UpdateProduct;

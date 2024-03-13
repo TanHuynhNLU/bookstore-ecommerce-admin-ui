@@ -117,7 +117,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -156,7 +156,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -195,7 +195,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -234,7 +234,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -273,7 +273,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -312,7 +312,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -351,7 +351,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -390,7 +390,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -429,7 +429,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
@@ -468,7 +468,7 @@ function Products() {
                                         <td className="p-3">
                                             <div className="flex flex-row items-center">
                                                 <Link
-                                                    to="./update-product"
+                                                    to="/update-product"
                                                     className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                 >
                                                     <PencilIcon className="h-4 w-4 text-slate-600" />
