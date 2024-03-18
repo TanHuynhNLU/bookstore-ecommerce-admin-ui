@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArchiveBoxIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import ProductImage from '~/assets/images/book-image.png';
 import { useEffect, useState } from 'react';
-import { books as BookData } from '~/DummyData';
+// import { books as BookData } from '~/DummyData';
 import { useDebounce } from '~/hooks';
 import * as productService from '~/services/ProductService';
 import Swal from 'sweetalert2';

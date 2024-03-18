@@ -3,7 +3,7 @@ import { UserPlusIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroi
 import UserAvatar from '~/assets/images/user.png';
 import { useEffect, useState } from 'react';
 import * as userService from '~/services/UserService';
-import { users as UserData } from '~/DummyData';
+// import { users as UserData } from '~/DummyData';
 import { useDebounce } from '~/hooks';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
