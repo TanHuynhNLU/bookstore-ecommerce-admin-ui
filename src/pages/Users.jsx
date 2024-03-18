@@ -21,10 +21,10 @@ function Users() {
     const debounce = useDebounce(searchValue, 500);
     const [isSearching, setIsSearching] = useState(false);
 
-    const handleNextPageChange = () => {
+    const handleNextPageClick = () => {
         if (page < totalPages - 1) setPage(page + 1);
     };
-    const handlePreviousPageChange = () => {
+    const handlePreviousPageClick = () => {
         if (page > 0) setPage(page - 1);
     };
     const handleSortChange = (e) => {
@@ -274,13 +274,13 @@ function Users() {
                             <div className="mt-4 flex flex-row">
                                 <button
                                     className="inline-block w-[120px] cursor-pointer rounded-l-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600"
-                                    onClick={handlePreviousPageChange}
+                                    onClick={handlePreviousPageClick}
                                 >
                                     Trang trước
                                 </button>
                                 <button
                                     className="inline-block w-[120px] cursor-pointer rounded-r-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600"
-                                    onClick={handleNextPageChange}
+                                    onClick={handleNextPageClick}
                                 >
                                     Trang sau
                                 </button>
