@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from '~/hooks';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import * as bookService from '~/services/ProductService';
+import * as productService from '~/services/ProductService';
 
 function AddProduct() {
     const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ function AddProduct() {
         published: 0,
         status: 'Mở bán',
         image: '',
+        description: '',
     });
     const [isNameExists, setIsNameExists] = useState(false);
     const debounce = useDebounce(formData.name, 500);
@@ -56,11 +57,11 @@ function AddProduct() {
 
         const fetchAPI = async () => {
             if (selectedImage.file) {
-                const uploadFileAPI = await bookService.uploadFile(selectedImage.file);
+                const uploadFileAPI = await productService.uploadFile(selectedImage.file);
                 if (uploadFileAPI.status === 'CREATED')
                     formData.image = `http://localhost:8080/api/FileUpload/files/${uploadFileAPI.data}`;
             }
-            const addNewUserAPI = await bookService.addNewBook(formData);
+            const addNewUserAPI = await productService.addNewBook(formData);
             if (addNewUserAPI.status === 'CREATED') {
                 toast.success('Thêm sản phẩm thành công', {
                     position: 'top-right',
@@ -99,7 +100,7 @@ function AddProduct() {
     // Make an API call to check if the book's name exists
     useEffect(() => {
         const fetchAPI = async () => {
-            const res = await bookService.checkName(debounce);
+            const res = await productService.checkName(debounce);
             if (res.status === 'OK') setIsNameExists(true);
             else setIsNameExists(false);
         };
@@ -306,7 +307,10 @@ function AddProduct() {
 
                             <div className="flex flex-col p-[1px] sm:flex-row-reverse">
                                 <div className="my-2 w-full px-3 sm:w-1/2 lg:w-[150px]">
-                                    <button className="w-full rounded-md bg-blue-700 px-4 py-2 text-white  hover:bg-blue-500">
+                                    <button
+                                        type="submit"
+                                        className="w-full rounded-md bg-blue-700 px-4 py-2 text-white  hover:bg-blue-500"
+                                    >
                                         Xác nhận
                                     </button>
                                 </div>

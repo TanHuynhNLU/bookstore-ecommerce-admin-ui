@@ -52,7 +52,7 @@ function UpdateUser() {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    // Handle the API call to add a new user when the submit button is clicked
+    // Handle the API call to update a user when the submit button is clicked
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -148,7 +148,7 @@ function UpdateUser() {
                         <form className="mt-4 max-w-[800px]" onSubmit={handleSubmit}>
                             <div className="relative mx-auto mb-6 block h-[100px] w-[100px] rounded-full">
                                 <img
-                                    src={selectedImage.preview}
+                                    src={selectedImage.preview || UserImage}
                                     alt="Avatar"
                                     className="mx-auto block h-[100px] w-[100px] rounded-full object-cover"
                                 />
@@ -173,7 +173,7 @@ function UpdateUser() {
                                         name="fullName"
                                         type="text"
                                         placeholder="Nhập Họ và tên"
-                                        defaultValue={formData.fullName}
+                                        value={formData.fullName || ''}
                                         onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
@@ -190,7 +190,7 @@ function UpdateUser() {
                                         type="text"
                                         required
                                         disabled
-                                        defaultValue={formData.username}
+                                        value={formData.username || ''}
                                         onChange={handleInputChange}
                                         className="w-full cursor-not-allowed rounded-md border border-solid border-gray-300 bg-gray-300 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-600"
                                     />
@@ -206,7 +206,7 @@ function UpdateUser() {
                                             type="password"
                                             required
                                             disabled
-                                            defaultValue={formData.password}
+                                            value={formData.password || ''}
                                             onChange={handleInputChange}
                                             className="w-full cursor-not-allowed rounded-md bg-gray-300 p-2 outline-none dark:bg-slate-600"
                                         />
@@ -225,7 +225,7 @@ function UpdateUser() {
                                         type="email"
                                         placeholder="Nhập vào email"
                                         onChange={handleInputChange}
-                                        defaultValue={formData.email}
+                                        value={formData.email || ''}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -237,7 +237,7 @@ function UpdateUser() {
                                         name="role"
                                         id="role"
                                         onChange={handleInputChange}
-                                        value={formData.role}
+                                        value={formData.role || 'User'}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="Admin">Admin</option>
@@ -259,7 +259,7 @@ function UpdateUser() {
                                         type="date"
                                         placeholder="Nhập ngày sinh"
                                         onChange={handleInputChange}
-                                        defaultValue={formData.birthday}
+                                        value={formData.birthday || ''}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -270,7 +270,7 @@ function UpdateUser() {
                                     <select
                                         name="gender"
                                         id="gender"
-                                        value={formData.gender}
+                                        value={formData.gender || 'Nam'}
                                         onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
@@ -291,7 +291,7 @@ function UpdateUser() {
                                         type="text"
                                         placeholder="Nhập vào địa chỉ"
                                         onChange={handleInputChange}
-                                        defaultValue={formData.address}
+                                        value={formData.address || ''}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -305,7 +305,7 @@ function UpdateUser() {
                                         type="text"
                                         placeholder="Nhập vào số điện thoại"
                                         onChange={handleInputChange}
-                                        defaultValue={formData.phone}
+                                        value={formData.phone || ''}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     />
                                 </div>
@@ -319,7 +319,7 @@ function UpdateUser() {
                                         name="status"
                                         id="status"
                                         onChange={handleInputChange}
-                                        value={formData.status}
+                                        value={formData.status || 'Kích hoạt'}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="Kích hoạt">Kích hoạt</option>
