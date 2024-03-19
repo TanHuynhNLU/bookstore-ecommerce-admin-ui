@@ -5,6 +5,7 @@ import AddUser from '~/pages/AddUser';
 import UpdateUser from '~/pages/UpdateUser';
 import AddProduct from '~/pages/AddProduct';
 import UpdateProduct from '~/pages/UpdateProduct';
+import Orders from '~/pages/Orders';
 
 export const routes = [
     { path: '/', component: Home },
@@ -14,4 +15,5 @@ export const routes = [
     { path: '/update-user/:userId', component: UpdateUser },
     { path: '/add-product', component: AddProduct },
     { path: '/update-product/:productId', component: UpdateProduct },
+    { path: '/orders', component: Orders },
 ];
