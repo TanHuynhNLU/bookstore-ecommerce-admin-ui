@@ -19,7 +19,6 @@ function Users() {
     const [totalPages, setTotalPages] = useState(10);
     const [searchValue, setSearchValue] = useState('');
     const debounce = useDebounce(searchValue, 500);
-    const [isSearching, setIsSearching] = useState(false);
 
     const handleNextPageClick = () => {
         if (page < totalPages - 1) setPage(page + 1);
@@ -28,7 +27,6 @@ function Users() {
         if (page > 0) setPage(page - 1);
     };
     const handleSortChange = (e) => {
-        setIsSearching(false);
         setSortBy(e.target.value);
     };
     const handleSortDirectionChange = (e) => {
@@ -39,7 +37,6 @@ function Users() {
     };
     const handleSearchValueChange = (e) => {
         setSearchValue(e.target.value);
-        setIsSearching(true);
     };
     const handleDeleteUserClick = (id) => {
         const fetchAPI = async () => {
@@ -92,23 +89,14 @@ function Users() {
 
     // Fetching user data from the API with pagination and sorting
     useEffect(() => {
-        if (!isSearching) {
-            const fetchAPI = async () => {
-                const res = await userService.getUsersPagination(page, pageSize, `${sortDirection}${sortBy}`);
-                setUsers(res.items);
-                setTotalPages(res.totalPages);
-                setTotalUsers(res.totalItems);
-            };
-            fetchAPI();
-        } else {
-            const fetchAPI = async () => {
-                const res = await userService.searchByUsername(debounce, page, pageSize);
-                setUsers(res.items);
-                setTotalPages(res.totalPages);
-                setTotalUsers(res.totalItems);
-            };
-            fetchAPI();
-        }
+        const fetchAPI = async () => {
+            const res = await userService.searchByUsername(debounce, page, pageSize, `${sortDirection}${sortBy}`);
+            setUsers(res.items);
+            setTotalPages(res.totalPages);
+            setTotalUsers(res.totalItems);
+        };
+        fetchAPI();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, pageSize, sortBy, sortDirection, debounce]);
 
