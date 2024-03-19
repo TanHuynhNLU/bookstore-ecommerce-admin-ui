@@ -6,6 +6,7 @@ import UpdateUser from '~/pages/UpdateUser';
 import AddProduct from '~/pages/AddProduct';
 import UpdateProduct from '~/pages/UpdateProduct';
 import Orders from '~/pages/Orders';
+import UpdateOrder from '~/pages/UpdateOrder';
 
 export const routes = [
     { path: '/', component: Home },
@@ -16,4 +17,5 @@ export const routes = [
     { path: '/add-product', component: AddProduct },
     { path: '/update-product/:productId', component: UpdateProduct },
     { path: '/orders', component: Orders },
+    { path: '/update-order', component: UpdateOrder },
 ];
