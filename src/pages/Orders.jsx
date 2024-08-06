@@ -1,8 +1,45 @@
 import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import UserAvatar from '~/assets/images/user.png';
+import { getOrdersPagination } from '~/services/OrderService';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 function Orders() {
+    const [orders, setOrders] = useState([]);
+    const [sortBy, setSortBy] = useState('id');
+    const [sortDirection, setSortDirection] = useState('');
+    const [pageSize, setPageSize] = useState(10);
+    const [totalOrders, setTotalOrders] = useState(0);
+    const [totalPages, setTotalPages] = useState(10);
+    const [page, setPage] = useState(0);
+
+    const handleSortByChange = (e) => {
+        setSortBy(e.target.value);
+    };
+    const handleSortDirectionChange = (e) => {
+        setSortDirection(e.target.value);
+    };
+    const handlePageSizeChange = (e) => {
+        setPageSize(e.target.value);
+    };
+    const handleNextPageClick = () => {
+        if (page < totalPages - 1) setPage(page + 1);
+    };
+    const handlePreviousPageClick = () => {
+        if (page > 0) setPage(page - 1);
+    };
+
+    // Fetching user data from the API with pagination and sorting
+    useEffect(() => {
+        const fetchAPI = async () => {
+            const res = await getOrdersPagination(page, pageSize, sortBy);
+            setOrders(res.items);
+            setTotalPages(res.totalPages);
+            setTotalOrders(res.totalItems);
+        };
+        fetchAPI();
+    }, [sortBy, sortDirection, pageSize, page]);
     return (
         <div className="px-4 pb-6 dark:text-gray-400">
             <div className="px-3">
@@ -46,6 +83,7 @@ function Orders() {
                                     name="filter"
                                     id="filter"
                                     className="border border-solid border-gray-300 dark:border-gray-600 dark:bg-slate-800"
+                                    onChange={handleSortByChange}
                                 >
                                     <option value="id" className="p-1">
                                         ID
@@ -59,6 +97,7 @@ function Orders() {
                                     name="orderBy"
                                     id="orderBy"
                                     className="border border-solid border-gray-300 dark:border-gray-600 dark:bg-slate-800"
+                                    onChange={handleSortDirectionChange}
                                 >
                                     <option value="" className="p-1">
                                         A-Z
@@ -80,396 +119,57 @@ function Orders() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">1</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">2</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">3</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">4</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">5</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">6</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">7</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">8</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">9</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100 dark:hover:bg-slate-800">
-                                        <td className="p-3">10</td>
-                                        <td className="flex flex-row items-center p-3">
-                                            <img src={UserAvatar} alt="avatar" className="h-10 w-10 rounded-full" />
-                                            <div className="ml-3">
-                                                <p>Tan Huynh</p>
-                                                <p className="text-slate-400">tanhuynh@gmail.com</p>
-                                            </div>
-                                        </td>
-                                        <td className="p-3">1/8/2023</td>
-                                        <td className="p-3">145.000 vnd</td>
-                                        <td className="p-3">
-                                            <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
-                                                Hoàn tất
-                                            </span>
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-yellow-400 to-yellow-500 inline-block px-2 text-white rounded-xl">Pending
-                                        </span> */}
-                                            {/* <span
-                                            class="bg-gradient-to-tr from-red-400 to-red-500 inline-block px-2 text-white rounded-xl">Cancel
-                                        </span>  */}
-                                        </td>
-                                        <td className="p-3">
-                                            <div className="flex flex-row items-center">
-                                                <Link
-                                                    to="/update-order"
-                                                    className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
-                                                >
-                                                    <PencilIcon className="h-4 w-4 text-slate-600" />
-                                                </Link>
-                                                <button
-                                                    id="deleteOrder"
-                                                    className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
-                                                >
-                                                    <TrashIcon className="h-4 w-4 text-slate-600" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {orders.map((order) => (
+                                        <tr key={order.id} className="hover:bg-gray-100 dark:hover:bg-slate-800">
+                                            <td className="p-3">{order.id}</td>
+                                            <td className="flex flex-row items-center p-3">
+                                                <img
+                                                    src={order.customer.avatar || UserAvatar}
+                                                    alt="avatar"
+                                                    className="h-10 w-10 rounded-full"
+                                                />
+                                                <div className="ml-3">
+                                                    <p>{order.customer.name}</p>
+                                                    <p className="text-slate-400">{order.customer.email}</p>
+                                                </div>
+                                            </td>
+                                            <td className="p-3">{moment(order.dateCreated).format('DD/MM/YYYY')}</td>
+                                            <td className="p-3">{order.totalPrice} vnd</td>
+                                            <td className="p-3">
+                                                {order.status === 'Hoàn tất' && (
+                                                    <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
+                                                        Hoàn tất
+                                                    </span>
+                                                )}
+                                                {order.status === 'Đang xử lý' && (
+                                                    <span class="inline-block rounded-xl bg-gradient-to-tr from-yellow-400 to-yellow-500 px-2 text-white">
+                                                        Đang xử lý
+                                                    </span>
+                                                )}
+                                                {order.status === 'Hủy' && (
+                                                    <span class="inline-block rounded-xl bg-gradient-to-tr from-red-400 to-red-500 px-2 text-white">
+                                                        Hủy
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className="p-3">
+                                                <div className="flex flex-row items-center">
+                                                    <Link
+                                                        to="/update-order"
+                                                        className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
+                                                    >
+                                                        <PencilIcon className="h-4 w-4 text-slate-600" />
+                                                    </Link>
+                                                    <button
+                                                        id="deleteOrder"
+                                                        className="ml-2 inline-block rounded-md bg-red-500 p-2 hover:opacity-80"
+                                                    >
+                                                        <TrashIcon className="h-4 w-4 text-slate-600" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -480,20 +180,30 @@ function Orders() {
                                     name="entries"
                                     id="entries"
                                     className="border border-solid border-gray-300 dark:border-gray-600 dark:bg-slate-800"
+                                    onChange={handlePageSizeChange}
                                 >
                                     <option value={10}>10</option>
                                     <option value={20}>20</option>
                                     <option value={50}>50</option>
                                 </select>
-                                <b> 1-10 </b>
+                                <b>
+                                    {' '}
+                                    {page * pageSize + 1}-{page * pageSize + orders.length}{' '}
+                                </b>
                                 trong
-                                <b> 120</b>
+                                <b> {totalOrders}</b>
                             </div>
                             <div className="mt-4 flex flex-row">
-                                <button className="inline-block w-[120px] cursor-pointer rounded-l-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600">
+                                <button
+                                    onClick={handlePreviousPageClick}
+                                    className="inline-block w-[120px] cursor-pointer rounded-l-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600"
+                                >
                                     Trang trước
                                 </button>
-                                <button className="inline-block w-[120px] cursor-pointer rounded-r-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600">
+                                <button
+                                    onClick={handleNextPageClick}
+                                    className="inline-block w-[120px] cursor-pointer rounded-r-xl border border-solid border-gray-300 px-4 py-2 text-center hover:bg-gray-100 dark:border-gray-600 dark:bg-slate-800 dark:hover:bg-slate-600"
+                                >
                                     Trang sau
                                 </button>
                             </div>
