@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+
+import { formatNumber } from '~/utils/utils';
 import UserAvatar from '~/assets/images/user.png';
 import { getOrdersPagination } from '~/services/OrderService';
 import { useEffect, useState } from 'react';
@@ -134,7 +136,7 @@ function Orders() {
                                                 </div>
                                             </td>
                                             <td className="p-3">{moment(order.dateCreated).format('DD/MM/YYYY')}</td>
-                                            <td className="p-3">{order.totalPrice} vnd</td>
+                                            <td className="p-3">{formatNumber(order.totalPrice)} vnd</td>
                                             <td className="p-3">
                                                 {order.status === 'Hoàn tất' && (
                                                     <span className="inline-block rounded-xl bg-gradient-to-tr from-green-400 to-green-500 px-2 text-white">
@@ -155,7 +157,7 @@ function Orders() {
                                             <td className="p-3">
                                                 <div className="flex flex-row items-center">
                                                     <Link
-                                                        to="/update-order"
+                                                        to={`/update-order/${order.id}`}
                                                         className="inline-block rounded-md bg-green-500 p-2 hover:opacity-80"
                                                     >
                                                         <PencilIcon className="h-4 w-4 text-slate-600" />

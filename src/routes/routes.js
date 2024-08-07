@@ -17,5 +17,5 @@ export const routes = [
     { path: '/add-product', component: AddProduct },
     { path: '/update-product/:productId', component: UpdateProduct },
     { path: '/orders', component: Orders },
-    { path: '/update-order', component: UpdateOrder },
+    { path: '/update-order/:orderId', component: UpdateOrder },
 ];

@@ -23,3 +23,23 @@ export const getOrdersPagination = async (page, size, sort) => {
         console.log(error);
     }
 };
+
+export const getOrderById = async (id) => {
+    try {
+        const res = await request.get(`/orders/${id}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const updateOrderStatus = async (id, status) => {
+    try {
+        const res = await request.patch(`/orders/${id}`, {
+            status,
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
