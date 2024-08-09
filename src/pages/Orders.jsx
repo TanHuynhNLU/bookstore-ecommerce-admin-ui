@@ -90,9 +90,9 @@ function Orders() {
                                     <option value="id" className="p-1">
                                         ID
                                     </option>
-                                    <option value="name">Tên</option>
-                                    <option value="dateOrdered">Ngày đặt</option>
-                                    <option value="totalPrice">Tổng giá</option>
+                                    <option value="customer.name">Tên</option>
+                                    <option value="customer.email">Email</option>
+                                    <option value="dateCreated">Ngày đặt</option>
                                     <option value="status">Trạng thái</option>
                                 </select>
                                 <select

@@ -136,8 +136,14 @@ function Contacts() {
                                     <option className="p-1" value="id">
                                         ID
                                     </option>
-                                    <option value="username">Tên Đăng nhập</option>
-                                    <option value="dateRegistered">Ngày đăng kí</option>
+                                    <option value="name">Tên</option>
+                                    <option value="email">Email</option>
+                                    <option value="title">Tiêu đề</option>
+                                    <option value="content">Nội dung</option>
+                                    <option value="reply">Phản hồi</option>
+                                    <option value="createdDate">Ngày tạo</option>
+                                    <option value="repliedDate">Ngày phản hồi</option>
+                                    <option value="repliedDate">Trạng thái</option>
                                 </select>
                                 <select
                                     name="orderBy"
