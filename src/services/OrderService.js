@@ -24,6 +24,15 @@ export const getOrdersPagination = async (page, size, sort) => {
     }
 };
 
+export const getOrderChartData = async () => {
+    try {
+        const res = await request.get('/orders/chart-data');
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getOrderById = async (id) => {
     try {
         const res = await request.get(`/orders/${id}`);

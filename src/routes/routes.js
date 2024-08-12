@@ -9,9 +9,11 @@ import Orders from '~/pages/Orders';
 import UpdateOrder from '~/pages/UpdateOrder';
 import Contacts from '~/pages/Contacts';
 import UpdateContact from '~/pages/UpdateContact';
+import Dashboard from '~/pages/Dashboard';
 
 export const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: Dashboard },
+    { path: '/dashboard', component: Dashboard },
     { path: '/products', component: Products },
     { path: '/users', component: Users },
     { path: '/add-user', component: AddUser },

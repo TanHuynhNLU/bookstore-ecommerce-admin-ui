@@ -68,7 +68,7 @@ function Products() {
 
         Swal.fire({
             title: 'Thông báo',
-            text: 'Bạn có chắc là muốn xóa tài khoản này?',
+            text: 'Bạn có chắc là muốn xóa sách này?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
