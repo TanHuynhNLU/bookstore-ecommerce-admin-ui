@@ -2,39 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
     --sidebar-width: 288px;
     --sidebar-collapse-width: 72px;
-    --bg-blue-700-opacity-20: rgba(29,78,216,0.2)
+    --bg-blue-700-opacity-20: rgba(29, 78, 216, 0.2);
 }
 
-@layer utilities{
-    .sidebar-collapse{
+@layer utilities {
+    .sidebar-collapse {
         width: var(--sidebar-collapse-width);
     }
 
-    .sidebar-collapse #sidebar-collapse-button{
+    .sidebar-collapse #sidebar-collapse-button {
         transform: rotate(180deg);
     }
 
-    .sidebar-collapse .collapse-hidden{
+    .sidebar-collapse .collapse-hidden {
         display: none;
     }
 
-    .sidebar-collapse .visibility-hidden{
+    .sidebar-collapse .visibility-hidden {
         visibility: hidden;
     }
 
-    .sidebar-collapse .sidebar-links{
+    .sidebar-collapse .sidebar-links {
         padding: 0px;
     }
 
-    .sidebar-collapse .sidebar-link{
+    .sidebar-collapse .sidebar-link {
         border-radius: 0px;
     }
 
-    .sidebar-collapse .sidebar-icon{
+    .sidebar-collapse .sidebar-icon {
         margin-right: 0px;
     }
-
 }

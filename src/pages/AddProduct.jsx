@@ -178,10 +178,10 @@ function AddProduct() {
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
                                         <option value="" />
-                                        <option value="Làm Giàu">Làm giàu</option>
-                                        <option value="Kinh điển">Kinh điển</option>
-                                        <option value="Thiếu nhi">Thiếu nhi</option>
-                                        <option value="Tiểu thuyết">Tiểu thuyết</option>
+                                        <option value="Kỹ Năng Sống">Kỹ Năng Sống</option>
+                                        <option value="Kinh Tế">Kinh Tế</option>
+                                        <option value="Kinh Điển">Kinh Điển</option>
+                                        <option value="Tiểu Thuyết">Tiểu thuyết</option>
                                         <option value="Manga">Manga</option>
                                     </select>
                                 </div>

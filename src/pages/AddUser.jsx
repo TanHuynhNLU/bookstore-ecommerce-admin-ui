@@ -239,8 +239,8 @@ function AddUser() {
                                         onChange={handleInputChange}
                                         className="w-full rounded-md border border-solid border-gray-300 bg-gray-100 p-2 outline-none focus:border-blue-700 dark:border-gray-600 dark:bg-slate-800"
                                     >
-                                        <option value="User">User</option>
-                                        <option value="Admin">Admin</option>
+                                        <option value="USER">USER</option>
+                                        <option value="ADMIN">ADMIN</option>
                                     </select>
                                 </div>
                             </div>

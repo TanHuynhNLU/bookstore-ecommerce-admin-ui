@@ -160,7 +160,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                                 <div className="mb-4 text-xl font-bold">
-                                    {orders && <AnimatedNumber number={users.length} />}
+                                    {orders && <AnimatedNumber number={orders.length} />}
                                 </div>
                             </div>
                         </div>
