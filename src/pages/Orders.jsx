@@ -45,7 +45,7 @@ function Orders() {
     return (
         <div className="px-4 pb-6 dark:text-gray-400">
             <div className="px-3">
-                <h2 className="text-3xl font-bold">Users</h2>
+                <h2 className="text-3xl font-bold">Đơn hàng</h2>
                 <ul>
                     <li className="inline-block">
                         <Link to="/">Trang chủ</Link>
@@ -135,7 +135,7 @@ function Orders() {
                                                     <p className="text-slate-400">{order.customer.email}</p>
                                                 </div>
                                             </td>
-                                            <td className="p-3">{moment(order.dateCreated).format('DD/MM/YYYY')}</td>
+                                            <td className="p-3">{order.dateCreated}</td>
                                             <td className="p-3">{formatNumber(order.totalPrice)} vnd</td>
                                             <td className="p-3">
                                                 {order.status === 'Hoàn tất' && (

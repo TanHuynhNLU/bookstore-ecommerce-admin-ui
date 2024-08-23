@@ -1,4 +1,3 @@
-import Home from '~/pages/Home';
 import Products from '~/pages/Products';
 import Users from '~/pages/Users';
 import AddUser from '~/pages/AddUser';
@@ -10,8 +9,9 @@ import UpdateOrder from '~/pages/UpdateOrder';
 import Contacts from '~/pages/Contacts';
 import UpdateContact from '~/pages/UpdateContact';
 import Dashboard from '~/pages/Dashboard';
+import Login from '~/pages/Login';
 
-export const routes = [
+export const privateRoutes = [
     { path: '/', component: Dashboard },
     { path: '/dashboard', component: Dashboard },
     { path: '/products', component: Products },
@@ -25,3 +25,5 @@ export const routes = [
     { path: '/contacts', component: Contacts },
     { path: '/update-contact/:contactId', component: UpdateContact },
 ];
+
+export const publicRoutes = [{ path: '/login', component: Login, layout: null }];

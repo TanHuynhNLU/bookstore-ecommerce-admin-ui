@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { EyeIcon } from '@heroicons/react/24/outline';
-import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
-import UserImage from '~/assets/images/user.png';
-import * as userService from '~/services/UserService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addContactReply, getContactById } from '~/services/ContactService';
-import { updateOrderStatus } from '~/services/OrderService';
 
 function UpdateContact() {
     const { contactId } = useParams();
@@ -132,7 +127,7 @@ function UpdateContact() {
                             <div className="flex flex-col lg:flex-row">
                                 <div className="my-2 w-full px-3 lg:w-1/2">
                                     <label htmlFor="title" className="mb-2 block">
-                                        Tiêu đề
+                                        Tiêu đề (*)
                                     </label>
                                     <div className="flex w-full flex-row rounded-md border border-solid border-gray-300 bg-gray-300 outline-none focus-within:border-blue-700 dark:border-gray-600 dark:bg-slate-600">
                                         <input
@@ -151,7 +146,7 @@ function UpdateContact() {
                             <div className="flex flex-col lg:flex-row">
                                 <div className="my-2 w-full px-3">
                                     <label htmlFor="content" className="mb-2 block">
-                                        Nội dung
+                                        Nội dung (*)
                                     </label>
                                     <textarea
                                         id="content"

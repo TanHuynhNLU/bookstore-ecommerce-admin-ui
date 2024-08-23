@@ -13,9 +13,12 @@ import {
     ArrowLeftEndOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '~/assets/images/avatar.jpg';
 
 function Header() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const [darkMode, setDarkMode] = useState(false);
 
@@ -41,6 +44,12 @@ function Header() {
 
     const handleSetLightMode = () => {
         setDarkMode(false);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        navigate('/login');
     };
 
     return (
@@ -373,13 +382,13 @@ function Header() {
                             </div>
                             <ul className="flex flex-col dark:bg-slate-900 dark:text-gray-400">
                                 <li className="block w-full">
-                                    <a
-                                        href="/#"
-                                        className="flex cursor-pointer flex-row items-center px-4 py-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+                                    <button
+                                        className="flex w-full cursor-pointer flex-row items-center px-4 py-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+                                        onClick={() => navigate(`/update-user/${user.id}`)}
                                     >
                                         <UserIcon className="mr-2 inline-block h-6 w-6 text-slate-500" />
                                         <span>Thông tin cá nhân</span>
-                                    </a>
+                                    </button>
                                 </li>
                                 <li className="block w-full">
                                     <a
@@ -391,13 +400,13 @@ function Header() {
                                     </a>
                                 </li>
                                 <li className="block w-full">
-                                    <a
-                                        href="/#"
-                                        className="flex cursor-pointer flex-row items-center px-4 py-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+                                    <button
+                                        className="flex w-full cursor-pointer flex-row items-center px-4 py-1 hover:bg-slate-200 dark:hover:bg-slate-800"
+                                        onClick={handleLogout}
                                     >
                                         <ArrowLeftEndOnRectangleIcon className="mr-2 inline-block h-6 w-6 text-slate-500" />
                                         <span>Đăng xuất</span>
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                             {/* End settings */}

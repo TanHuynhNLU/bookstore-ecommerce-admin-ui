@@ -56,7 +56,6 @@ function LineChart({ chartData }) {
             },
         ],
     };
-    console.log(chartData);
     return (
         <div>
             <Line options={options} data={data} />
